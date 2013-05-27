@@ -35,8 +35,7 @@
     ==== map
     ==== sidebar
     ====== menu
-    ======== menu
-    ========== items
+    ======== items
 ````
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
