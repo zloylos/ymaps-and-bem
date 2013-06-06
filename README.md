@@ -38,8 +38,9 @@ npm install
 ````
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
+
 ￼
-В терминах bemjson:
+В bemjson:
 ````js
 {
     block: 'b-page',
@@ -102,7 +103,7 @@ npm install
 
 Вкладывая один блок меню в другой, можно добиться необходимой иерархичности.
 
-Например, простейшее меню в bemjson будет выглядеть так:
+Например, простейшее меню, описанное в bemjson будет выглядеть так:
 ````js
 {
     block: 'menu',
