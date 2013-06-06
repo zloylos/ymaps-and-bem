@@ -37,6 +37,8 @@ npm install
     ======== items
 ````
 
+<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
+￼
 В терминах bemjson:
 ````js
 {
@@ -62,9 +64,6 @@ npm install
     ]
 }
 ````
-
-<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
-￼
 
 Более подробно можно посмотреть здесь: [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index/index.bemjson.js)
 
