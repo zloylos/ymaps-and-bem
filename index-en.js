@@ -1,16 +1,74 @@
-/*borschik:include:../../bem-bl/blocks-common/i-jquery/__inherit/i-jquery__inherit.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-jquery/__identify/i-jquery__identify.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-jquery/__is-empty-object/i-jquery__is-empty-object.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-jquery/__debounce/i-jquery__debounce.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-jquery/__observable/i-jquery__observable.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-bem/i-bem.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-ecma/__object/i-ecma__object.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-ecma/__array/i-ecma__array.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-ecma/__function/i-ecma__function.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-bem/__internal/i-bem__internal.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-bem/__dom/i-bem__dom.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-ecma/__string/i-ecma__string.js*/;
-/*borschik:include:../../bem-bl/blocks-common/i-bem/__dom/_init/i-bem__dom_init_auto.js*/;
-/*borschik:include:../../desktop.blocks/menu/menu.js*/;
-/*borschik:include:../../desktop.blocks/i-geo-controller/i-geo-controller.js*/;
-/*borschik:include:../../desktop.blocks/map/_api/map_api_ymaps.js*/;
+/* ../../desktop.blocks/container/container.css begin */
+.container {
+    position: relative;
+    width: 80%;
+    margin: 50px auto;
+    
+    font-family: "PT Sans", "Helvetica", sans-serif;
+    font-size: 15px; 
+    }
+/* ../../desktop.blocks/container/container.css end */
+
+/* ../../desktop.blocks/menu/menu.css begin */
+.menu {
+    margin-bottom: 5px;
+    }
+/* ../../desktop.blocks/menu/menu.css end */
+
+/* ../../desktop.blocks/map/map.css begin */
+.map {
+    position: absolute;
+    left: 0;
+    width: 70%;
+    height: 450px;
+    }
+/* ../../desktop.blocks/map/map.css end */
+
+/* ../../desktop.blocks/sidebar/sidebar.css begin */
+.sidebar {
+    position: absolute;
+    padding-left: 20px;
+    left: 70%;
+    width: 30%;
+    }
+/* ../../desktop.blocks/sidebar/sidebar.css end */
+
+/* ../../desktop.blocks/menu/__title/menu__title.css begin */
+.menu__title {
+    cursor: pointer;
+    color: #4f7942;
+    border-bottom: 1px dotted #aaa;
+    }
+/* ../../desktop.blocks/menu/__title/menu__title.css end */
+
+/* ../../desktop.blocks/menu/__title/_state/menu__title_state_fold.css begin */
+.menu__title_state_fold {
+    font-weight: bold;
+    }
+
+    .menu__title_state_fold:before {
+        content: "+";
+        position: absolute;
+        left: 8px;
+
+        font-weight: normal;
+        color: #aaa;
+        }
+
+/* ../../desktop.blocks/menu/__title/_state/menu__title_state_fold.css end */
+
+/* ../../desktop.blocks/menu/__item/menu__item.css begin */
+.menu__item {
+    cursor: pointer;
+    border-bottom: 1px dotted #eee;
+    padding: 5px 0;
+    }
+/* ../../desktop.blocks/menu/__item/menu__item.css end */
+
+/* ../../desktop.blocks/menu/__item/_state/menu__item_state_active.css begin */
+.menu__item_state_active {
+    color: red;
+    font-weight: bold;
+    }
+/* ../../desktop.blocks/menu/__item/_state/menu__item_state_active.css end */
+
