@@ -2,9 +2,9 @@
     block: 'b-page',
     title: 'Riga, shops',
     head: [
-        { elem: 'css', url: '_index.css', ie: false },
+        { elem: 'css', url: '_index-en.css', ie: false },
         { block: 'i-jquery', elem: 'core' },
-        { elem: 'js', url: '_index.js' }
+        { elem: 'js', url: '_index-en.js' }
     ],
     content: [
         {
