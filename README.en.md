@@ -6,9 +6,6 @@ Live: [http://zloylos.github.io/ymapsbem/index-en.html](http://zloylos.github.io
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/ready-en.png" alt="">
 
-Спасибо Саше Тармолову (@tarmolov) за ценные советы и помощь. 
-￼
-
 <img src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="">
 
 Yandex Maps API Frontend Developer <br>
