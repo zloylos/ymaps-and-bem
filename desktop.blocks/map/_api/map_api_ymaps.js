@@ -52,14 +52,13 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         var center = this.params.center || [55.76, 37.64],
             zoom = this.params.zoom;
 
-        // Инициализация карты
         this._map = new ymaps.Map(this.domElem[0], {
             center: center,
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         });
 
-        // Если есть метки, то добавляем метки на карту.
+        // Если есть метки, то добавляем их на карту.
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
                 // Проверяем, является ли элемент коллекцией / группой.
@@ -69,7 +68,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                         properties: item.properties
                     }, item.options);
 
-                    // Теперь добавим элементы, описанные в bemjson в коллецию.
+                    // Теперь добавим элементы, описанные в bemjson, в коллецию.
                     item.data.forEach(function (placemark) {
                         placemark.options = placemark.options || {};
                         geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
@@ -79,7 +78,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                     geoObject = new ymaps.Placemark(item.coords, item.properties, item.options);
                 }
 
-                // После можно добавлять географический объект на карту.
                 this._map.geoObjects.add(geoObject);
             }, this);
         }
@@ -110,7 +108,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             this._map.copyrights.add('&copy; OpenStreetMap contributors, CC-BY-SA');
         }
 
-        // Добавляем контроллы на карту.
+        // Добавляем контролы на карту.
         this._map.controls
             .add('zoomControl')
             .add('scaleLine')
