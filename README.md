@@ -154,6 +154,6 @@ npm install
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="">
 
-Разработчик интерфейсов API Яндекс.Карт 
-http://github.com/zloylos
+Разработчик интерфейсов API Яндекс.Карт <br>
+http://github.com/zloylos <br>
 http://twitter.com/kandasoft

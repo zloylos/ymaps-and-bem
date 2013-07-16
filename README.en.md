@@ -154,6 +154,6 @@ npm install
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="">
 
-Yandex Maps API Frontend Developer 
-http://github.com/zloylos
+Yandex Maps API Frontend Developer <br>
+http://github.com/zloylos <br>
 http://twitter.com/kandasoft
