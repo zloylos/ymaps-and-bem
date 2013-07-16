@@ -37,7 +37,7 @@
                                 },
                                 data: [
                                     { coords: [56.951394, 24.102709], properties: { id: 'group-1-1', balloonContent: 'Hobbywool' } },
-                                    { coords: [56.950972, 24.110262],  properties: { id: 'group-1-2', balloonContent: 'OT Stils — clothes designed in Latvia' } },
+                                    { coords: [56.950972, 24.110262], properties: { id: 'group-1-2', balloonContent: 'OT Stils — clothes designed in Latvia' } },
                                     { coords: [56.950175, 24.106743], properties: { id: 'group-1-3', balloonContent: 'Latvijas delikateses (Latvian Delicacies)' } }
                                 ]
                             },
@@ -52,8 +52,8 @@
                                     preset: 'twirl#redIcon'
                                 },
                                 data: [
-                                    { coords: [56.948674 24.105198],   properties: { id: 'group-2-1', balloonContent: 'National costume centre "Senā klēts"' } },
-                                    { coords: [56.948205, 24.11215], properties: { id: 'group-2-2', balloonContent: 'MADARA ecocosmetics' } },
+                                    { coords: [56.948674, 24.105198], properties: { id: 'group-2-1', balloonContent: 'National costume centre "Senā klēts"' } },
+                                    { coords: [56.948205, 24.112152], properties: { id: 'group-2-2', balloonContent: 'MADARA ecocosmetics' } },
                                     { coords: [56.956904, 24.113653], properties: { id: 'group-2-3', balloonContent: 'Abra' } }
                                 ]
                             },

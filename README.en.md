@@ -143,7 +143,7 @@ npm install
 
 ## Заключение
 
-Готовый пример можно посмотреть по ссылке: [http://zloylos.github.io/ymapsbem/](http://zloylos.github.io/ymapsbem/).
+Готовый пример можно посмотреть по ссылке: [http://zloylos.github.io/ymapsbem/index_en.html](http://zloylos.github.io/ymapsbem/).
 
 Возможно, с использованием методологии БЭМ пример и получился более громоздким, чем без неё, но зато у нас есть более структурированный и удобный для поддержки код. А главное, его довольно просто масштабировать и расширять, что без использования методологии вызвало бы значительные проблемы и чаще всего привело бы к полному переписыванию кода.
 
@@ -154,6 +154,6 @@ npm install
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="">
 
-Разработчик интерфейсов API Яндекс.Карт 
+Yandex Maps API Frontend Developer 
 http://github.com/zloylos
 http://twitter.com/kandasoft
