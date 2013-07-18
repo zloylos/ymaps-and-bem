@@ -14,7 +14,7 @@ npm install
 Теперь проект у нас на компьютере. Давайте протестируем, все ли работает. Для этого нужно перейти в папку, запустить make, подождать пока проект соберется и открыть в браузере страницу: [localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html)
 Перед глазами должно быть что-то вроде:
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/project_stub.png" title="" alt="" border="0"/>
+<img src="http://zloylos.me/other/imgs/ymapsbem/project_stub.png" alt="Скомпилированная страница BEM project stub" border="0"/>
 
 Готово, можно переходить к следующему этапу.
 
@@ -37,9 +37,9 @@ npm install
     ======== items
 ````
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
+<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="Структура страницы">
 
-￼
+
 В bemjson:
 ````js
 {
@@ -78,7 +78,7 @@ npm install
 ````js
 {
     coords: [], // координаты метки
-    properties: {}, // данные метки 
+    properties: {}, // данные метки
     options: {}, // опции метки
 }
 ````
@@ -89,7 +89,7 @@ npm install
     collection: true, // флаг, указывающий, что это коллекция / группа меток
     properties: {}, // свойства группы
     options: {}, // опции группы
-    data: [], // массив меток. 
+    data: [], // массив меток.
 }
 ````
 Это покрывает 90% всех кейсов.
@@ -98,8 +98,8 @@ npm install
 
 Здесь нам нужно сделать двухуровневое меню. Создаем блок menu, который будет распознавать клики по группам и элементам. Соответственно, нам нужны такие элементы:
 - item — элемент меню;
-- content — контейнер для элементов;
-- title — заголовок группы.
+- content — контейнер для элементов;
+- title — заголовок группы.
 
 Вкладывая один блок меню в другой, можно добиться необходимой иерархичности.
 
@@ -136,9 +136,9 @@ npm install
 - при клике на группу нужно либо скрыть ее, либо показать, если до этого она была скрыта.
 
 Кроме того, чтобы правильно взаимодействовать с картой, блок-контроллер должен знать, готова ли карта к тому, чтобы объектами на ней можно было управлять. Для этого блок map у себя будет пробрасывать событие «map-inited», а i-geo-controller — слушать его и запоминать ссылку на экземпляр карты.
-￼
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme.png" alt="">
+
+<img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme.png" alt="Схема взаимодействия блоков">
 
 
 ## Заключение
@@ -147,13 +147,28 @@ npm install
 
 Возможно, с использованием методологии БЭМ пример и получился более громоздким, чем без неё, но зато у нас есть более структурированный и удобный для поддержки код. А главное, его довольно просто масштабировать и расширять, что без использования методологии вызвало бы значительные проблемы и чаще всего привело бы к полному переписыванию кода.
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/ready.png" alt="">
+<img src="http://zloylos.me/other/imgs/ymapsbem/ready.png" alt="Готовый пример">
 
-Спасибо [Саше Тармолову](http://twitter.com/tarmolov) за ценные советы и помощь. 
-￼
+Спасибо [Саше Тармолову](http://twitter.com/tarmolov) за ценные советы и помощь.
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="">
-
-Разработчик интерфейсов API Яндекс.Карт <br>
-http://github.com/zloylos <br>
-http://twitter.com/kandasoft
+<!--(Begin) Article author block-->
+<div class="article-author">
+    <div class="article-author__photo">
+        <img class="article-author__pictures" src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="Фотография Денис Хананеин">
+    </div>
+    <div class="article-author__info">
+        <div class="article-author__row">
+             <span class="article-author__name">Денис Хананеин,
+        </div>
+        <div class="article-author__row">
+            Разработчик интерфейсов API Яндекс.Карт
+        </div>
+        <div class="article-author__row">
+             <a class="article-author__social-icon b-link" target="_blank" href="http://twitter.com/kandasoft">twitter.com/kandasoft</a>
+        </div>
+        <div class="article-author__row">
+             <a class="article-author__social-icon b-link" target="_blank" href="http://github.com/zloylos">github.com/zloylos</a>
+        </div>
+    </div>
+</div>
+<!--(End) Article author block-->
