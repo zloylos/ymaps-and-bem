@@ -5,12 +5,12 @@ BEM.DOM.decl('menu', {
             BEM.blocks['menu']
                 .liveCtxBind(groups, 'menuItemClick', function (e, data) { console.log(data) } );
         },
-        //Будем реагировать на изменение состояния элемента item
+        // Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
             'state': function (elem, modName, modVal) {
                 // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло событие menuItemClick, 
                 // заодно передаём важные параметры: элемент и его идентификатор метки. 
                 this.trigger('menuItemClick', {
                     domElem : elem,
@@ -32,7 +32,7 @@ BEM.DOM.decl('menu', {
     onTriggerElemClick: function (e) {
         e.preventDefault();
         var el = e.data.domElem;
-        // потом точечно включим у того, по которому нажали.
+        // Потом точечно включим у того, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
 

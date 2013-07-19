@@ -5,7 +5,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         }
     },
 
-    // Описываем модули, которыре будем загружать.
+    // Описываем модули, которые будем загружать.
     mapsPackages: [
         [
             'package.full'
@@ -68,7 +68,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                         properties: item.properties
                     }, item.options);
 
-                    // Теперь добавим элементы, описанные в bemjson, в коллецию.
+                    // Теперь добавим элементы, описанные в bemjson, в коллекцию.
                     item.data.forEach(function (placemark) {
                         placemark.options = placemark.options || {};
                         geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
@@ -123,7 +123,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     },
 
     /**
-     * Возвращает экземпляр карты.
      * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.
      */
     getMap: function () {

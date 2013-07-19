@@ -5,7 +5,7 @@ BEM.DOM.decl('i-geo-controller', {
             this.findBlockOn('map', 'map')
                 .on('map-inited', this.onMapInited, this);
 
-            // Слушаем меню (будем переключать метки / группы).
+            // Слушаем события меню (будем переключать метки / группы).
             this.findBlocksInside('menu').forEach(function (block) {
                 block
                     .on('menuItemClick', this.onMenuItemClick, this)
@@ -26,18 +26,18 @@ BEM.DOM.decl('i-geo-controller', {
     onMapInited: function (e, data) {
         this.map = data.map;
         // Эту группу не будем добавлять на карту, 
-        // чтобы помещённые в неё геообъекты были не видны.
+        // чтобы помещённые в неё геообъекты были скрыты.
         this._hidden = new ymaps.GeoObjectCollection();
     },
 
     /** 
-     * Поиск нужной группу и добавление/удаление её с карты.
-     * @param {String} id Идентификатор группы 
+     * Поиск нужной группы и добавление/удаление её с карты.
+     * @param {String} id Идентификатор группы.
      */
     groupToggle: function (id) {
         var it, group;
 
-        // Сначала ищем в видимой на карте коллекции.
+        // Сначала ищем в видимой коллекции.
         it = this.map.geoObjects.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('collection') && group.properties.get('id') === id) {
@@ -46,7 +46,7 @@ BEM.DOM.decl('i-geo-controller', {
             }
         }
 
-        // Если мы сюда попали, значит коллекция уже удалена и надо искать в удаленных.
+        // Если мы сюда попали, значит, коллекция уже скрыта.
         it = this._hidden.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('id') === id) {
