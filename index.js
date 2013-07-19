@@ -1,4 +1,3 @@
-/* ../../bem-bl/blocks-common/i-jquery/__inherit/i-jquery__inherit.js begin */
 /**
  * Inheritance plugin
  *
@@ -119,10 +118,7 @@ $.inheritSelf = function(base, props, staticProps) {
 
 };
 
-})(jQuery);
-/* ../../bem-bl/blocks-common/i-jquery/__inherit/i-jquery__inherit.js end */
-;
-/* ../../bem-bl/blocks-common/i-jquery/__identify/i-jquery__identify.js begin */
+})(jQuery);;
 /**
  * Identify plugin
  *
@@ -155,10 +151,7 @@ $.identify = function(obj, onlyGet) {
 
 };
 
-})(jQuery);
-/* ../../bem-bl/blocks-common/i-jquery/__identify/i-jquery__identify.js end */
-;
-/* ../../bem-bl/blocks-common/i-jquery/__is-empty-object/i-jquery__is-empty-object.js begin */
+})(jQuery);;
 (function($) {
 
 $.isEmptyObject || ($.isEmptyObject = function(obj) {
@@ -167,10 +160,7 @@ $.isEmptyObject || ($.isEmptyObject = function(obj) {
     });
 
 })(jQuery);
-
-/* ../../bem-bl/blocks-common/i-jquery/__is-empty-object/i-jquery__is-empty-object.js end */
 ;
-/* ../../bem-bl/blocks-common/i-jquery/__debounce/i-jquery__debounce.js begin */
 /**
  * Debounce and throttle function's decorator plugin 1.0.6
  *
@@ -239,10 +229,7 @@ $.extend({
 
 });
 
-})(jQuery);
-/* ../../bem-bl/blocks-common/i-jquery/__debounce/i-jquery__debounce.js end */
-;
-/* ../../bem-bl/blocks-common/i-jquery/__observable/i-jquery__observable.js begin */
+})(jQuery);;
 /**
  * Observable plugin
  *
@@ -258,7 +245,7 @@ $.extend({
 
 (function($) {
 
-var storageExpando = '__' + +new Date + 'storage',
+var storageExpando = '__' + (+new Date) + 'storage',
     getFnId = function(fn, ctx) {
         return $.identify(fn) + (ctx? $.identify(ctx) : '');
     },
@@ -443,10 +430,7 @@ var storageExpando = '__' + +new Date + 'storage',
 
 $.observable = $.inherit(Observable, Observable);
 
-})(jQuery);
-/* ../../bem-bl/blocks-common/i-jquery/__observable/i-jquery__observable.js end */
-;
-/* ../../bem-bl/blocks-common/i-bem/i-bem.js begin */
+})(jQuery);;
 /** @requires jquery.inherit */
 /** @requires jquery.isEmptyObject */
 /** @requires jquery.identify */
@@ -1184,10 +1168,7 @@ this.BEM = $.inherit($.observable, /** @lends BEM.prototype */ {
 
 });
 
-})(jQuery);
-/* ../../bem-bl/blocks-common/i-bem/i-bem.js end */
-;
-/* ../../bem-bl/blocks-common/i-ecma/__object/i-ecma__object.js begin */
+})(jQuery);;
 (function() {
 
 /**
@@ -1204,10 +1185,7 @@ Object.keys || (Object.keys = function(obj) {
     return res;
 });
 
-})();
-/* ../../bem-bl/blocks-common/i-ecma/__object/i-ecma__object.js end */
-;
-/* ../../bem-bl/blocks-common/i-ecma/__array/i-ecma__array.js begin */
+})();;
 (function() {
 
 var ptp = Array.prototype,
@@ -1366,10 +1344,7 @@ Array.isArray || (Array.isArray = function(obj) {
     return toStr.call(obj) === '[object Array]';
 });
 
-})();
-/* ../../bem-bl/blocks-common/i-ecma/__array/i-ecma__array.js end */
-;
-/* ../../bem-bl/blocks-common/i-ecma/__function/i-ecma__function.js begin */
+})();;
 (function() {
 
 var slice = Array.prototype.slice;
@@ -1385,10 +1360,7 @@ Function.prototype.bind || (Function.prototype.bind = function(ctx) {
 
 });
 
-})();
-/* ../../bem-bl/blocks-common/i-ecma/__function/i-ecma__function.js end */
-;
-/* ../../bem-bl/blocks-common/i-bem/__internal/i-bem__internal.js begin */
+})();;
 /** @fileOverview Module for internal BEM helpers */
 /** @requires BEM */
 
@@ -1546,10 +1518,7 @@ BEM.INTERNAL = {
 
 }
 
-})(BEM, jQuery);
-/* ../../bem-bl/blocks-common/i-bem/__internal/i-bem__internal.js end */
-;
-/* ../../bem-bl/blocks-common/i-bem/__dom/i-bem__dom.js begin */
+})(BEM, jQuery);;
 /** @requires BEM */
 /** @requires BEM.INTERNAL */
 
@@ -1557,6 +1526,7 @@ BEM.INTERNAL = {
 
 var win = $(window),
     doc = $(document),
+    scope = $('body'),
 
 /**
  * Storage for DOM elements by unique key
@@ -2015,6 +1985,31 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
      */
     bindToWin : function(event, fn) {
 
+        var _fn = fn,
+            currentHeight,
+            currentWidth;
+
+        if (event === 'resize') {
+
+            fn = function() {
+
+                var height = win.height(),
+                    width = win.width();
+
+                if (currentHeight !== height || currentWidth !== width) {
+
+                    currentHeight = height;
+                    currentWidth = width;
+
+                    _fn.apply(this, arguments);
+
+                }
+
+
+            }
+
+        }
+
         this._needSpecialUnbind = true;
         return this.bindToDomElem(win, event, fn);
 
@@ -2288,7 +2283,7 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
             className.indexOf(classPrefix) > -1?
                 this.className = className.replace(
                     classRE,
-                    (needDel? '' : '$1' + classPrefix + modVal) + '$3') :
+                    (needDel? '' : '$1' + classPrefix + modVal)) :
                 needDel || $(this).addClass(classPrefix + modVal);
         });
 
@@ -2423,6 +2418,17 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
     },
 
     /**
+     * Elemify given element
+     * @param {jQuery} elem Element
+     * @param {String} elemName Name
+     * @returns {jQuery}
+     */
+    elemify : function(elem, elemName) {
+        (elem = $(elem)).__bemElemName = elemName;
+        return elem;
+    },
+
+    /**
      * Checks whether a DOM element is in a block
      * @protected
      * @param {jQuery} domElem DOM element
@@ -2494,6 +2500,13 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
     }
 
 }, /** @lends BEM.DOM */{
+
+    /**
+     * Scope
+     * @protected
+     * @type jQuery
+     */
+    scope : scope,
 
     /**
      * Document shortcut
@@ -3154,7 +3167,7 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
      */
     _buildModValRE : function(modName, elem, quantifiers) {
 
-        return new RegExp('(\\s?)' + this._buildModClassPrefix(modName, elem) + '(' + NAME_PATTERN + ')(\\s|$)', quantifiers);
+        return new RegExp('(\\s|^)' + this._buildModClassPrefix(modName, elem) + '(' + NAME_PATTERN + ')(?=\\s|$)', quantifiers);
 
     },
 
@@ -3211,10 +3224,7 @@ var DOM = BEM.DOM = BEM.decl('i-bem__dom',/** @lends BEM.DOM.prototype */{
 });
 
 })(BEM, jQuery);
-
-/* ../../bem-bl/blocks-common/i-bem/__dom/i-bem__dom.js end */
 ;
-/* ../../bem-bl/blocks-common/i-ecma/__string/i-ecma__string.js begin */
 (function() {
 
 String.prototype.trim || (String.prototype.trim = function () {
@@ -3229,17 +3239,11 @@ String.prototype.trim || (String.prototype.trim = function () {
 
 });
 
-})();
-/* ../../bem-bl/blocks-common/i-ecma/__string/i-ecma__string.js end */
-;
-/* ../../bem-bl/blocks-common/i-bem/__dom/_init/i-bem__dom_init_auto.js begin */
+})();;
 /* дефолтная инициализация */
 $(function() {
     BEM.DOM.init();
-});
-/* ../../bem-bl/blocks-common/i-bem/__dom/_init/i-bem__dom_init_auto.js end */
-;
-/* ../../desktop.blocks/menu/menu.js begin */
+});;
 BEM.DOM.decl('menu', {
     onElemSetMod: {
         'js': function () {
@@ -3247,12 +3251,12 @@ BEM.DOM.decl('menu', {
             BEM.blocks['menu']
                 .liveCtxBind(groups, 'menuItemClick', function (e, data) { console.log(data) } );
         },
-        //Будем реагировать на изменение состояния элемента item
+        // Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
             'state': function (elem, modName, modVal) {
                 // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло событие menuItemClick, 
                 // заодно передаём важные параметры: элемент и его идентификатор метки. 
                 this.trigger('menuItemClick', {
                     domElem : elem,
@@ -3274,7 +3278,7 @@ BEM.DOM.decl('menu', {
     onTriggerElemClick: function (e) {
         e.preventDefault();
         var el = e.data.domElem;
-        // потом точечно включим у того, по которому нажали.
+        // Потом точечно включим у того, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
 
@@ -3310,10 +3314,7 @@ BEM.DOM.decl('menu', {
         });
     }
 });
-
-/* ../../desktop.blocks/menu/menu.js end */
 ;
-/* ../../desktop.blocks/i-geo-controller/i-geo-controller.js begin */
 BEM.DOM.decl('i-geo-controller', {
     onSetMod : {
         'js' : function () {
@@ -3321,7 +3322,7 @@ BEM.DOM.decl('i-geo-controller', {
             this.findBlockOn('map', 'map')
                 .on('map-inited', this.onMapInited, this);
 
-            // Слушаем меню (будем переключать метки / группы).
+            // Слушаем события меню (будем переключать метки / группы).
             this.findBlocksInside('menu').forEach(function (block) {
                 block
                     .on('menuItemClick', this.onMenuItemClick, this)
@@ -3342,18 +3343,18 @@ BEM.DOM.decl('i-geo-controller', {
     onMapInited: function (e, data) {
         this.map = data.map;
         // Эту группу не будем добавлять на карту, 
-        // чтобы помещённые в неё геообъекты были не видны.
+        // чтобы помещённые в неё геообъекты были скрыты.
         this._hidden = new ymaps.GeoObjectCollection();
     },
 
     /** 
-     * Поиск нужной группу и добавление/удаление её с карты.
-     * @param {String} id Идентификатор группы 
+     * Поиск нужной группы и добавление/удаление её с карты.
+     * @param {String} id Идентификатор группы.
      */
     groupToggle: function (id) {
         var it, group;
 
-        // Сначала ищем в видимой на карте коллекции.
+        // Сначала ищем в видимой коллекции.
         it = this.map.geoObjects.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('collection') && group.properties.get('id') === id) {
@@ -3362,7 +3363,7 @@ BEM.DOM.decl('i-geo-controller', {
             }
         }
 
-        // Если мы сюда попали, значит коллекция уже удалена и надо искать в удаленных.
+        // Если мы сюда попали, значит, коллекция уже скрыта.
         it = this._hidden.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('id') === id) {
@@ -3404,10 +3405,7 @@ BEM.DOM.decl('i-geo-controller', {
         }
     }
 });
-
-/* ../../desktop.blocks/i-geo-controller/i-geo-controller.js end */
 ;
-/* ../../desktop.blocks/map/_api/map_api_ymaps.js begin */
 BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     onSetMod: {
         'js': function () {
@@ -3415,14 +3413,14 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         }
     },
 
-    // Описываем модули, которыре будем загружать.
+    // Описываем модули, которые будем загружать.
     mapsPackages: [
         [
             'package.full'
         ]
     ],
 
-    /** 
+    /**
      * Загрузчик API.
      */
     loadMapsApi: function () {
@@ -3435,7 +3433,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             }, this);
 
             apiScript.src = [
-                'http://api-maps.yandex.ru/2.0/?',
+                'http://api-maps.yandex.ru/2.0.29/?',
                 '&load=' + this.mapsPackages[0].join(','),
                 '&lang=' + this.params.lang,
                 '&onload=' + apiCallback
@@ -3444,10 +3442,10 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             document.getElementsByTagName('head')[0].appendChild(apiScript);
         } else {
             this.onAPILoaded();
-        }   
-    }, 
+        }
+    },
 
-    /** 
+    /**
      * Выполнится после загрузки API.
      */
     onAPILoaded: function () {
@@ -3455,31 +3453,30 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         this.initMap();
     },
 
-    /** 
-     * Инициализация карты. 
+    /**
+     * Инициализация карты.
      */
     initMap: function () {
         var center = this.params.center || [55.76, 37.64],
             zoom = this.params.zoom;
 
-        // Инициализация карты
-        this.map = new ymaps.Map(this.domElem[0], {
+        this._map = new ymaps.Map(this.domElem[0], {
             center: center,
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         });
-        
-        // Если есть метки, то добавляем метки на карту. 
+
+        // Если есть метки, то добавляем их на карту.
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
                 // Проверяем, является ли элемент коллекцией / группой.
                 var geoObject;
                 if (item.collection) {
-                    geoObject = new ymaps.GeoObjectArray({ 
-                        properties: item.properties 
+                    geoObject = new ymaps.GeoObjectArray({
+                        properties: item.properties
                     }, item.options);
 
-                    // Теперь добавим элементы, описанные в bemjson в коллецию.
+                    // Теперь добавим элементы, описанные в bemjson, в коллекцию.
                     item.data.forEach(function (placemark) {
                         placemark.options = placemark.options || {};
                         geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
@@ -3488,30 +3485,56 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                     item.options = item.options || {};
                     geoObject = new ymaps.Placemark(item.coords, item.properties, item.options);
                 }
-                
-                // После можно добавлять географический объект на карту.
-                this.map.geoObjects.add(geoObject);
+
+                this._map.geoObjects.add(geoObject);
             }, this);
         }
 
-        // Установка bounds по добавленным геообъектам. 
+        // Установка bounds по добавленным геообъектам.
         if (this.params.setupBoundsByGeoObjects) {
-            this.map.setBounds(this.map.geoObjects.getBounds());
+            this._map.setBounds(this._map.geoObjects.getBounds());
         }
 
-        // Добавляем контроллы на карту.
-        this.map.controls
+        // Установка слоя с тайлами OSM.
+        if (this.params.setupOSMTiles) {
+            var OSMLayer = function () {
+                var layer = new ymaps.Layer('http://tile.openstreetmap.org/%z/%x/%y.png', {
+                    projection: ymaps.projection.sphericalMercator
+                });
+                layer.getZoomRange = function () {
+                    var promise = new ymaps.util.Promise();
+                    promise.resolve([0, 18]);
+                    return promise;
+                };
+                return layer;
+            };
+            ymaps.layer.storage.add('osm#map', OSMLayer);
+            var osmMapType = new ymaps.MapType('OSM', ['osm#map']);
+            ymaps.mapType.storage.add('OSM', osmMapType);
+
+            this._map.setType('OSM');
+            this._map.copyrights.add('&copy; OpenStreetMap contributors, CC-BY-SA');
+        }
+
+        // Добавляем контролы на карту.
+        this._map.controls
             .add('zoomControl')
             .add('scaleLine')
             .add('typeSelector')
             .add('mapTools');
 
-        // Блок поделится информацией о том, что он инициализировал карту. 
-        // В данных передаём ссылку на экземпляр карты. 
-        this.trigger('map-inited', { 
-            map: this.map 
+        // Блок поделится информацией о том, что он инициализировал карту.
+        // В данных передаём ссылку на экземпляр карты.
+        this.trigger('map-inited', {
+            map: this._map
         });
+    },
+
+    /**
+     * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.
+     */
+    getMap: function () {
+        return this._map || null;
     }
 });
-/* ../../desktop.blocks/map/_api/map_api_ymaps.js end */
 ;

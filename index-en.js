@@ -3251,12 +3251,12 @@ BEM.DOM.decl('menu', {
             BEM.blocks['menu']
                 .liveCtxBind(groups, 'menuItemClick', function (e, data) { console.log(data) } );
         },
-        //Будем реагировать на изменение состояния элемента item
+        // Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
             'state': function (elem, modName, modVal) {
                 // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло событие menuItemClick, 
                 // заодно передаём важные параметры: элемент и его идентификатор метки. 
                 this.trigger('menuItemClick', {
                     domElem : elem,
@@ -3278,7 +3278,7 @@ BEM.DOM.decl('menu', {
     onTriggerElemClick: function (e) {
         e.preventDefault();
         var el = e.data.domElem;
-        // потом точечно включим у того, по которому нажали.
+        // Потом точечно включим у того, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
 
@@ -3322,7 +3322,7 @@ BEM.DOM.decl('i-geo-controller', {
             this.findBlockOn('map', 'map')
                 .on('map-inited', this.onMapInited, this);
 
-            // Слушаем меню (будем переключать метки / группы).
+            // Слушаем события меню (будем переключать метки / группы).
             this.findBlocksInside('menu').forEach(function (block) {
                 block
                     .on('menuItemClick', this.onMenuItemClick, this)
@@ -3343,18 +3343,18 @@ BEM.DOM.decl('i-geo-controller', {
     onMapInited: function (e, data) {
         this.map = data.map;
         // Эту группу не будем добавлять на карту, 
-        // чтобы помещённые в неё геообъекты были не видны.
+        // чтобы помещённые в неё геообъекты были скрыты.
         this._hidden = new ymaps.GeoObjectCollection();
     },
 
     /** 
-     * Поиск нужной группу и добавление/удаление её с карты.
-     * @param {String} id Идентификатор группы 
+     * Поиск нужной группы и добавление/удаление её с карты.
+     * @param {String} id Идентификатор группы.
      */
     groupToggle: function (id) {
         var it, group;
 
-        // Сначала ищем в видимой на карте коллекции.
+        // Сначала ищем в видимой коллекции.
         it = this.map.geoObjects.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('collection') && group.properties.get('id') === id) {
@@ -3363,7 +3363,7 @@ BEM.DOM.decl('i-geo-controller', {
             }
         }
 
-        // Если мы сюда попали, значит коллекция уже удалена и надо искать в удаленных.
+        // Если мы сюда попали, значит, коллекция уже скрыта.
         it = this._hidden.getIterator();
         while (group = it.getNext()) {
             if (group.properties.get('id') === id) {
@@ -3413,7 +3413,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         }
     },
 
-    // Описываем модули, которыре будем загружать.
+    // Описываем модули, которые будем загружать.
     mapsPackages: [
         [
             'package.full'
@@ -3433,7 +3433,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             }, this);
 
             apiScript.src = [
-                'http://api-maps.yandex.ru/2.0/?',
+                'http://api-maps.yandex.ru/2.0.29/?',
                 '&load=' + this.mapsPackages[0].join(','),
                 '&lang=' + this.params.lang,
                 '&onload=' + apiCallback
@@ -3476,7 +3476,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                         properties: item.properties
                     }, item.options);
 
-                    // Теперь добавим элементы, описанные в bemjson, в коллецию.
+                    // Теперь добавим элементы, описанные в bemjson, в коллекцию.
                     item.data.forEach(function (placemark) {
                         placemark.options = placemark.options || {};
                         geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
@@ -3531,7 +3531,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     },
 
     /**
-     * Возвращает экземпляр карты.
      * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.
      */
     getMap: function () {
