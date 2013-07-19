@@ -25,7 +25,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             }, this);
 
             apiScript.src = [
-                'http://api-maps.yandex.ru/2.0/?',
+                'http://api-maps.yandex.ru/2.0.29/?',
                 '&load=' + this.mapsPackages[0].join(','),
                 '&lang=' + this.params.lang,
                 '&onload=' + apiCallback
