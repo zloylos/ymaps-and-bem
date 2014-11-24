@@ -1,49 +1,58 @@
-# API Яндекс.Карт и БЭМ
+# Yandex.Maps API and BEM
 
-Один из самых частых кейсов использования API Яндекс.Карт — создание меню для показа на карте организаций различных типов (коллекций геообъектов). С помощью такого меню пользователь сайта может отобразить на карте только те объекты, которые его интересуют. Например, [вот так](http://dimik.github.com/ymaps/examples/group-menu/menu03.html). Но давайте реализуем этот пример с помощью методологии БЭМ!
+One of the most frequent use case for the Yandex.Maps API is creation of a menu to show different types of PoI (Points of Interest) - geoobject collections. This menu helps an end user to choose which types of POI to see at any given time. Here is an [example](http://dimik.github.com/ymaps/examples/group-menu/menu03.html). Now we will implement all above based on [BEM methodology](http://bem.info/method/).
 
-## Первые шаги
-Создатели БЭМ позаботились о разработчиках и создали проект-скелет, который поможет начать разработку «с низкого старта». Начнем с него.
+## Firsts steps
 
-````bash
+BEM developers created a [project-stub](http://bem.info/tutorials/project-stub/) for a quick start with BEM project. We are going to use it.
+
+Clone the project-stub and install all required dependences:
+
+```bash
 git clone https://github.com/bem/project-stub.git shopsList
 cd shopsList
 npm install
-````
+```
 
-Теперь проект у нас на компьютере. Давайте протестируем, все ли работает. Для этого нужно перейти в папку, запустить make, подождать пока проект соберется и открыть в браузере страницу: [localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html)
-Перед глазами должно быть что-то вроде:
+Now we can use the project locally. To test that everything works properly, open the project folder and run `enb server`. Than check the result at [localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html) in browser:
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/project_stub.png" alt="Скомпилированная страница BEM project stub" border="0"/>
+<img src="https://raw.githubusercontent.com/bem/bem-method/bem-info-data/articles/yamapsbem/project-stub.png" alt="BEM project stub compilled page" border="0"/>
 
-Готово, можно переходить к следующему этапу.
+Now we can proceed to the next step.
 
-## Общее видение проекта
+## General description of the project
 
-Нам нужно создать блок «map», в котором будет находиться карта, блок «sidebar» — правая или левая колонка, в которой будет находиться блок «menu», реализующий список организаций по категориям. Методология БЭМ подсказывает, что мы должны проектировать так, чтобы блоки не знали о существовании друг друга, поэтому нужно будет создать промежуточный блок, который будет принимать клики на меню и взаимодействовать с картой. Назовем его «i-geo-controller».
+We need to create several blocks:
 
-Чтобы лучше понять зачем нужен промежуточный блок, как он работает и что такое «миксы», рекомендуем посмотреть [рассказ Кира Белевича «Миксы во вселенной БЭМ»](http://events.yandex.ru/events/yasubbotnik/msk-sep-2012/talks/327/).
+* `map` block for the map itself
+* `sidebar` block (a left column) for a `menu` block
+* `menu` block for a list of organizations by groups showing.
 
-## Описание страницы, написание bemjson
+According to BEM methodology the blocks should not “know” about each other. So, we need to create one more intermediate block that will lister to the menu clicks and interact with the map. We will call this block `i-geo-controller`.
 
-Здесь всё просто. Мы изначально продумали структуру страницы, основные блоки и теперь осталось все это записать в json-подобном виде. Не буду вдаваться в подробности, вы всегда можете посмотреть исходный код. Структура страницы будет такой:
+## Page tree description – BEMJSON declaration
 
-````
-    b-page
+We considered all details of the page structure and defined the main blocks, so it should be easy to declare the page in BEMJSON. Now we start to write all above in JSON-styled code.
+
+The page structure is shown below:
+
+```
+    page
     == container
     ==== map
     ==== sidebar
     ====== menu
     ======== items
-````
+```
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="Структура страницы">
+<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="Page structure">
 
+￼
+An example of BEMJSON declaration:
 
-В bemjson:
 ````js
 {
-    block: 'b-page',
+    block: 'page',
     content: [
         {
             block: 'container',
@@ -66,44 +75,49 @@ npm install
 }
 ````
 
-Более подробно можно посмотреть здесь: [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index/index.bemjson.js)
+You can see the source code in [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index-en/index-en.bemjson.js).
 
-## Блок map
+## `map` block
 
-Давайте начнем разработку с главного блока — карты. Прежде всего нужно подключить API с необходимыми опциями. Можно было бы создать отдельный блок i-API, но, кажется, куда удобнее реализовать все это в рамках одного блока, используя модификаторы. Для блока map мы создадим модификатор «api», в котором для начала разместим значение — «ymaps».
-В примере мы будем использовать [динамический API](http://api.yandex.ru/maps/doc/jsapi/), но нужно помнить, что мы можем использовать и [static API](http://api.yandex.ru/maps/doc/staticapi/). Это можно реализовать в рамках модификаторов.
+We start development from the main block — `map`. First of all we should connect to the API with all the needed options. We could implement this with a new block called `i-API`. But, we could also choose the more convenient way, and implement all required options in one block using modifiers. We set `api` modifier with `ymaps` value for `map` block. In the example we will use a [dynamic API](http://api.yandex.ru/maps/doc/jsapi/). However, we could use a [static API](http://api.yandex.ru/maps/doc/staticapi/) instead.
 
-Для удобной работы с картой нам стоит продумать интерфейс добавления меток на карту без лишней головной боли. Для этого стоит сделать обработку поля: geoObjects, в котором будут храниться метки или коллекции. Для метки сделаем такой интерфейс:
+To ease our work with the map, we should design additional handy placemarks for the interface. For this, we should process `geoObjects` field with [placemarks or placemark collections](http://api.yandex.com/maps/doc/jsapi/2.x/dg/concepts/geoobjects.xml).
 
-````js
+We create the following interface:
+
+* For the placemark
+
+```js
 {
-    coords: [], // координаты метки
-    properties: {}, // данные метки
-    options: {}, // опции метки
+    coords: [],
+    properties: {},
+    options: {}
 }
-````
+```
 
-Для коллекции:
-````js
+* For the placemark collection
+
+```js
 {
-    collection: true, // флаг, указывающий, что это коллекция / группа меток
-    properties: {}, // свойства группы
-    options: {}, // опции группы
-    data: [], // массив меток.
+    collection: true,
+    properties: {},
+    options: {},
+    data: []
 }
-````
-Это покрывает 90% всех кейсов.
+```
+This code covers almost 90% of all possible use cases.
 
-## Блок menu
+## `menu` block
 
-Здесь нам нужно сделать двухуровневое меню. Создаем блок menu, который будет распознавать клики по группам и элементам. Соответственно, нам нужны такие элементы:
-- item — элемент меню;
-- content — контейнер для элементов;
-- title — заголовок группы.
+We should implement a two-level menu. For this, we create `menu` block to catch the clicks on the groups and elements. We need to create the following elements:
 
-Вкладывая один блок меню в другой, можно добиться необходимой иерархичности.
+* `item` — a menu item.
+* `content` — a container for the items.
+* `title` — a group title.
 
-Например, простейшее меню, описанное в bemjson будет выглядеть так:
+We include one menu block into another one to build needed hierarchy.
+
+Here is a simple menu example declared in BEMJSON:
 ````js
 {
     block: 'menu',
@@ -129,46 +143,24 @@ npm install
 }
 ````
 
-## Блок i-geo-controller
+## `i-geo-controller` block
 
-Блок-контроллер, который подписывается на события блоков menu — «menuItemClick» и «menuGroupClick», реагирует на них и совершает определенные действия на карте. В нашем примере у него следующие задачи:
-- при клике на метку нужно переместить ее в центр карты и открыть балун;
-- при клике на группу нужно либо скрыть ее, либо показать, если до этого она была скрыта.
+`i-geo-controller` is a block-controller that listens to `menu` block events, such as `menuItemClick` and `menuGroupClick` to react on their behavior and make definite actions on the map.
 
-Кроме того, чтобы правильно взаимодействовать с картой, блок-контроллер должен знать, готова ли карта к тому, чтобы объектами на ней можно было управлять. Для этого блок map у себя будет пробрасывать событие «map-inited», а i-geo-controller — слушать его и запоминать ссылку на экземпляр карты.
+In our example this block has the following tasks:
+
+* If there is a click on the placemark, the controller should center the map on this placemark and open the balloon.
+* If there is a click on the group, the controller should show or hide this group.
+
+In addition to interaction with the map, the controller block must ”know“ if the map is ready for objects management. To implement all above, `map` block should emmit `map-inited` event, and the controller block should listen for this event trigger and keep a link of the map instance.
+
+<img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme-en.png" alt="Scheme of work blocks">
 
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme.png" alt="Схема взаимодействия блоков">
+For example, [zloylos.github.io/ymapsbem/index-en.html](zloylos.github.io/ymapsbem/index-en.html).
 
+<img src="http://zloylos.me/other/imgs/ymapsbem/ready-en.png" alt="Example">
 
-## Заключение
+Thus, the example implemented with BEM methodology is more verbose than without BEM, we get well-structured and easy-to-support code base. So, we get benefit from scaling and expanding it easily, with no need in code rewriting, thanks to the methodology.
 
-Готовый пример можно посмотреть по ссылке: [http://zloylos.github.io/ymapsbem/](http://zloylos.github.io/ymapsbem/).
-
-Возможно, с использованием методологии БЭМ пример и получился более громоздким, чем без неё, но зато у нас есть более структурированный и удобный для поддержки код. А главное, его довольно просто масштабировать и расширять, что без использования методологии вызвало бы значительные проблемы и чаще всего привело бы к полному переписыванию кода.
-
-<img src="http://zloylos.me/other/imgs/ymapsbem/ready.png" alt="Готовый пример">
-
-Спасибо [Саше Тармолову](http://twitter.com/tarmolov) за ценные советы и помощь.
-
-<!--(Begin) Article author block-->
-<div class="article-author">
-    <div class="article-author__photo">
-        <img class="article-author__pictures" src="http://zloylos.me/other/imgs/ymapsbem/denis.png" alt="Фотография Денис Хананеин">
-    </div>
-    <div class="article-author__info">
-        <div class="article-author__row">
-             <span class="article-author__name">Денис Хананеин,
-        </div>
-        <div class="article-author__row">
-            Разработчик интерфейсов API Яндекс.Карт
-        </div>
-        <div class="article-author__row">
-             <a class="article-author__social-icon b-link" target="_blank" href="http://twitter.com/kandasoft">twitter.com/kandasoft</a>
-        </div>
-        <div class="article-author__row">
-             <a class="article-author__social-icon b-link" target="_blank" href="http://github.com/zloylos">github.com/zloylos</a>
-        </div>
-    </div>
-</div>
-<!--(End) Article author block-->
+Thanks to [Alexander Tarmolov](http://twitter.com/tarmolov) for advice and support.

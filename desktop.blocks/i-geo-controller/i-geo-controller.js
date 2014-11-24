@@ -1,17 +1,21 @@
-BEM.DOM.decl('i-geo-controller', {
-    onSetMod : {
-        'js' : function () {
-            // Слушаем состояние карты (нужно сделать надстройки).
-            this.findBlockOn('map', 'map')
-                .on('map-inited', this.onMapInited, this);
+modules.define('i-geo-controller', ['i-bem__dom'], function(provide, BEMDOM) {
 
-            // Слушаем события меню (будем переключать метки / группы).
-            this.findBlocksInside('menu').forEach(function (block) {
-                block
-                    .on('menuItemClick', this.onMenuItemClick, this)
-                    .on('menuGroupClick', this.onMenuGroupClick, this);
-            }, this);
+  provide(BEMDOM.decl(
+    this.name,
+    {
+      onSetMod : {
+          'js' : {
+              inited: function () {
+                  // Слушаем состояние карты (нужно сделать надстройки).
+                  this.findBlockOn('map', 'map')
+                      .on('map-inited', this.onMapInited, this);
 
+                  // Слушаем события меню (будем переключать метки / группы).
+                  BEMDOM.blocks.menu
+                      .on(this.domElem, 'menuItemClick', this.onMenuItemClick, this)
+                      .on(this.domElem, 'menuGroupClick', this.onMenuGroupClick, this);
+
+            }
         }
     },
 
@@ -25,12 +29,12 @@ BEM.DOM.decl('i-geo-controller', {
 
     onMapInited: function (e, data) {
         this.map = data.map;
-        // Эту группу не будем добавлять на карту, 
+        // Эту группу не будем добавлять на карту,
         // чтобы помещённые в неё геообъекты были скрыты.
         this._hidden = new ymaps.GeoObjectCollection();
     },
 
-    /** 
+    /**
      * Поиск нужной группы и добавление/удаление её с карты.
      * @param {String} id Идентификатор группы.
      */
@@ -87,4 +91,5 @@ BEM.DOM.decl('i-geo-controller', {
             }
         }
     }
+}));
 });

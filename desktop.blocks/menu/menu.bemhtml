@@ -1,4 +1,3 @@
-block menu {
-    js: true
-    attrs: { 'data-group': this.ctx.placemarksGroupId }
-}
+block('menu')(
+    js()((function() { return { group: this.ctx.placemarksGroupId }; }))
+);

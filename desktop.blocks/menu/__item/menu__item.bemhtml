@@ -1,4 +1,4 @@
-block menu, elem item {
-    tag: 'li'
-    attrs: { 'data-group': this.ctx.placemarkId } 
-}
+block('menu').elem('item')(
+    tag()('li'),
+    js()((function() { return { group: this.ctx.placemarkId }; }))
+);
