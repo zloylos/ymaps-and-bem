@@ -1,9 +1,8 @@
 ({
-    block: 'b-page',
+    block: 'page',
     title: 'Карта объектов компании «Лёлика и Болика»',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
-        { block: 'i-jquery', elem: 'core' },
         { elem: 'js', url: '_index.js' }
     ],
     content: [

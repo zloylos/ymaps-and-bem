@@ -1,0 +1,13 @@
+{
+  "name": "ymapsbem",
+  "version": "0.2.0",
+  "description": "Yandex Maps with BEM demo project",
+  "bugs": "https://github.com/dab/ymapsbem/issues",
+  "ignore": [
+    "node_modules",
+    "libs"
+  ],
+  "dependencies": {
+    "bem-components": "451bec8d7277ff9a39e6eecfefa1ae78fdaf6892"
+  }
+}

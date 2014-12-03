@@ -1,29 +1,28 @@
-BEM.DOM.decl('menu', {
+modules.define('menu', ['i-bem__dom', 'jquery'], function(provide, BEMDOM, $) {
+
+  provide(BEMDOM.decl(
+    this.name,
+    {
     onElemSetMod: {
-        'js': function () {
-            var groups = this.findBlockOutside('menu');
-            BEM.blocks['menu']
-                .liveCtxBind(groups, 'menuItemClick', function (e, data) { console.log(data) } );
-        },
         // Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
             'state': function (elem, modName, modVal) {
-                // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                // произошло. Для этого мы вызываем trigger и говорим, что произошло событие menuItemClick, 
-                // заодно передаём важные параметры: элемент и его идентификатор метки. 
-                this.trigger('menuItemClick', {
+                // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло событие menuItemClick,
+                // заодно передаём важные параметры: элемент и его идентификатор метки.
+                this.emit('menuItemClick', {
                     domElem : elem,
-                    group: elem.data('group')
+                    group: this.elemParams(elem).group
                 });
             }
         },
         // и элемента content
         'content': {
             'state': function (elem, modName, modVal) {
-                this.trigger('menuGroupClick', {
+                this.emit('menuGroupClick', {
                     domElem : elem,
-                    group: elem.parent().data('group'),
+                    group: this.elemParams(elem.parent()).group,
                 });
             }
         }
@@ -31,16 +30,16 @@ BEM.DOM.decl('menu', {
 
     onTriggerElemClick: function (e) {
         e.preventDefault();
-        var el = e.data.domElem;
+        var el = e.currentTarget;
         // Потом точечно включим у того, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
 
     onTriggerGroupClick: function (e) {
         e.preventDefault();
-        var el = e.data.domElem,
+        var el = e.currentTarget,
             groupEl = this.elem('content'),
-            groupId = el.parent().data('group');
+            groupId = this.elemParams(el).group;
 
         // Сворачиваем группу.
         groupEl.slideToggle();
@@ -67,4 +66,7 @@ BEM.DOM.decl('menu', {
             this.lastSelected = data.domElem;
         });
     }
+}
+    ));
 });
+
