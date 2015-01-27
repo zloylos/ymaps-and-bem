@@ -75,7 +75,7 @@ An example of BEMJSON declaration:
 }
 ````
 
-You can see the source code in [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index-en/index-en.bemjson.js).
+You can see the source code in [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index/index.bemjson.js).
 
 ## `map` block
 
@@ -157,7 +157,7 @@ In addition to interaction with the map, the controller block must ”know“ if
 <img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme-en.png" alt="Scheme of work blocks">
 
 
-For example, [zloylos.github.io/ymapsbem/index-en.html](zloylos.github.io/ymapsbem/index-en.html).
+For example, [zloylos.github.io/ymapsbem/index-en.html](http://zloylos.github.io/ymapsbem/index-en.html).
 
 <img src="http://zloylos.me/other/imgs/ymapsbem/ready-en.png" alt="Example">
 
