@@ -1,10 +1,10 @@
 # Yandex.Maps API and BEM
 
-One of the most frequent use case for the Yandex.Maps API is creation of a menu to show different types of PoI (Points of Interest) - geoobject collections. This menu helps an end user to choose which types of POI to see at any given time. Here is an [example](http://dimik.github.com/ymaps/examples/group-menu/menu03.html). Now we will implement all above based on [BEM methodology](http://bem.info/method/).
+One of the most frequent use case for the Yandex.Maps API is creation of a menu to show different types of PoI (Points of Interest) - geoobject collections. This menu helps an end user to choose which types of POI to see at any given time. Here is an [example](https://dimik.github.com/ymaps/examples/group-menu/menu03.html). Now we will implement all above based on [BEM methodology](https://en.bem.info/method/).
 
 ## Firsts steps
 
-BEM developers created a [project-stub](http://bem.info/tutorials/project-stub/) for a quick start with BEM project. We are going to use it.
+BEM developers created a [project-stub](https://en.bem.info/tutorials/project-stub/) for a quick start with BEM project. We are going to use it.
 
 Clone the project-stub and install all required dependences:
 
@@ -16,7 +16,7 @@ npm install
 
 Now we can use the project locally. To test that everything works properly, open the project folder and run `enb server`. Than check the result at [localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html) in browser:
 
-<img src="https://raw.githubusercontent.com/bem/bem-method/bem-info-data/articles/yamapsbem/project-stub.png" alt="BEM project stub compilled page" border="0"/>
+![BEM project stub compilled page](https://img-fotki.yandex.ru/get/6808/246231603.0/0_14ad3a_514cc2ef_orig)
 
 Now we can proceed to the next step.
 
@@ -45,9 +45,9 @@ The page structure is shown below:
     ======== items
 ```
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="Page structure">
-
+![Page structure](https://img-fotki.yandex.ru/get/6822/246231603.0/0_14ad39_a3d53b98_orig)
 ￼
+
 An example of BEMJSON declaration:
 
 ````js
@@ -154,13 +154,13 @@ In our example this block has the following tasks:
 
 In addition to interaction with the map, the controller block must ”know“ if the map is ready for objects management. To implement all above, `map` block should emmit `map-inited` event, and the controller block should listen for this event trigger and keep a link of the map instance.
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/blocks_scheme-en.png" alt="Scheme of work blocks">
+![Scheme of work blocks](https://img-fotki.yandex.ru/get/6747/246231603.0/0_14ad38_a92bbe4_orig)
 
 
 For example, [zloylos.github.io/ymapsbem/index-en.html](http://zloylos.github.io/ymapsbem/index-en.html).
 
-<img src="http://zloylos.me/other/imgs/ymapsbem/ready-en.png" alt="Example">
+![Example](https://img-fotki.yandex.ru/get/6819/246231603.0/0_14ad37_2f4c8a9a_orig)
 
 Thus, the example implemented with BEM methodology is more verbose than without BEM, we get well-structured and easy-to-support code base. So, we get benefit from scaling and expanding it easily, with no need in code rewriting, thanks to the methodology.
 
-Thanks to [Alexander Tarmolov](http://twitter.com/tarmolov) for advice and support.
+Thanks to [Alexander Tarmolov](https://twitter.com/tarmolov) for advice and support.
